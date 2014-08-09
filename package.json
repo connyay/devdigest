@@ -1,0 +1,26 @@
+{
+  "name": "thedigest",
+  "version": "0.0.1",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/connyay/thedigest.git"
+  },
+  "author": "Connor Hindley",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/connyay/thedigest/issues"
+  },
+  "homepage": "https://github.com/connyay/thedigest",
+  "dependencies": {
+    "express": "3.4.7",
+    "moment": "^2.8.1",
+    "mongoose": "3.8.1",
+    "q": "^1.0.1",
+    "request": "^2.40.0"
+  }
+}
