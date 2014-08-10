@@ -2,7 +2,7 @@ extend layout
 
 block content
   div(ng-controller='MainCtrl as ctrl')
-    input.block.filter(type='text', placeholder='Filter Posts', ng-model='filter', ng-if='!loading && posts.length')
+    input.block.filter(type='text', placeholder='Filter', ng-show='!loading && posts.length', ng-model='filter')
     ul
       li(ng-repeat='post in posts | filter:{title: filter} track by post._id')
         h4
