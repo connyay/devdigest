@@ -7,6 +7,9 @@ block content
         h4
           a(ng-href='{{post.link}}', target='_blank') {{post.title}}
         .subheader
-          {{post.time}} &mdash; {{post.source}} &mdash;#{' '}
-          a(ng-href='{{post.comment_link', target='_blank') {{post.comment_count}} Comments
+          {{post.time}} &mdash; {{post.source}}
+          span(ng-if='post.comment_link')
+            &mdash;#{' '}
+            a(ng-href='{{post.comment_link}}', target='_blank')
+              ng-pluralize(count='post.comment_count', when="{'one': '1 comment', 'other': '{} comments'}")
         hr
