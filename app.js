@@ -1,5 +1,6 @@
 'use strict';
 var express = require('express');
+var compression = require('compression');
 // mongoose setup
 require('./db');
 
@@ -8,6 +9,7 @@ var api = {
 };
 
 var app = express();
+app.use(compression());
 
 app.set('views', __dirname + '/views');
 app.set('view engine', 'jade');
