@@ -232,6 +232,12 @@
         font-weight: normal;
         font-size: 13px;
         color: #444; }
+    input.block {
+        width: 100%;
+    }
+    input.filter {
+        text-align: center;
+    }
 
 /* #Misc
 ================================================== */
