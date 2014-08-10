@@ -1,10 +1,24 @@
+'use strict';
 var express = require('express');
 // mongoose setup
 require('./db');
 
-// setup middleware
+var api = {
+    post: require('./api/post')
+};
+
 var app = express();
+
+app.set('views', __dirname + '/views');
+app.set('view engine', 'jade');
+app.use(express.static(__dirname + '/public'));
+
 app.set('port', (process.env.PORT || 5000));
+
+app.get('/posts', api.post.index);
+app.get('/', function(req, res, next) {
+    res.render('index');
+});
 
 // Start it up
 app.listen(app.get('port'), function() {
