@@ -30,7 +30,7 @@ function fetchRedditFeed(subreddit) {
             'User-Agent': reddit.uaString
         }
     };
-    request(reddit.url + '/r/' + subreddit + '/hot.json?limit=1', opts, function(error, response, body) {
+    request(reddit.url + '/r/' + subreddit + '/hot.json?limit=' + reddit.limit, opts, function(error, response, body) {
         if (!error && response.statusCode === 200) {
             var data = JSON.parse(body);
             data.data.children.forEach(function(post) {
@@ -55,8 +55,8 @@ function fetchRedditFeed(subreddit) {
 
 function fetchEchoJsFeed(page) {
     var deferred = Q.defer();
-
-    request(echojs.url + '/api/getnews/top/1/1', function(error, response, body) {
+    var start = (page === 1) ? 1 : 33;
+    request(echojs.url + '/api/getnews/top/' + start + '/' + echojs.limit, function(error, response, body) {
         if (!error && response.statusCode === 200) {
             var data = JSON.parse(body);
             data.news.forEach(function(post) {
@@ -77,7 +77,7 @@ function fetchEchoJsFeed(page) {
 
 function fetchHackerNewsFeed() {
     var deferred = Q.defer();
-    request(hackernews.url + '/get/top?limit=2', function(error, response, body) {
+    request(hackernews.url + '/get/top?limit=' + hackernews.limit, function(error, response, body) {
         if (!error && response.statusCode === 200) {
             var data = JSON.parse(body);
             data.stories.forEach(function(post) {
@@ -155,11 +155,18 @@ deferredList.push(fetchHackerNewsFeed());
 Q.all(deferredList).then(function() {
     sortAndStorePosts();
     // Wipe out DB
-    Post.remove({}, function(err) {
-        console.log('collection removed')
+    Post.collection.remove({}, function(err) {
+        if (!err) {
+            console.log('Collection dropped.');
+        } else {
+            console.log('Error dropping collection?');
+        }
     });
     Post.collection.insert(posts, function(err, docs) {
-
-        debugger;
+        if (!err) {
+            console.log('Collection saved! Stored ' + docs.length + ' posts in the DB.');
+        } else {
+            console.log('Error saving docs?');
+        }
     });
 });
