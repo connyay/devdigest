@@ -2,7 +2,7 @@ extend layout
 
 block content
   div(ng-controller='MainCtrl as ctrl')
-    input.block.filter(type='text', placeholder='Filter Posts' ng-model='filter')
+    input.block.filter(type='text', placeholder='Filter Posts', ng-model='filter', ng-if='!loading && posts.length')
     ul
       li(ng-repeat='post in posts | filter:{title: filter} track by post._id')
         h4
@@ -14,3 +14,6 @@ block content
             a(ng-href='{{post.comment_link}}', target='_blank')
               ng-pluralize(count='post.comment_count', when="{'one': '1 comment', 'other': '{} comments'}")
         hr
+      li.text-center(ng-if='!loading && !posts.length')
+        em Could not find any posts...
+    loading(ng-if='loading')
