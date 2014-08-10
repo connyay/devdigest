@@ -139,7 +139,7 @@ function sortAndStorePosts() {
 
 var deferredList = [];
 // Grab Reddit Feeds
-['programming', 'technology', 'science', 'webdev', 'blackhat'].forEach(function(subreddit) {
+['programming', 'technology', 'science', 'webdev', 'web_design', 'blackhat'].forEach(function(subreddit) {
     deferredList.push(fetchRedditFeed(subreddit));
 });
 
