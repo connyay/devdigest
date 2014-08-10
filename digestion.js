@@ -9,7 +9,7 @@ var Post = require('mongoose').model('Post');
 
 var reddit = {
     url: 'http://www.reddit.com',
-    limit: 100,
+    limit: 75,
     uaString: 'thedigest/0.1 by connyay',
     subreddits: ['programming', 'technology', 'futurology', 'science', 'webdev', 'web_design', 'blackhat']
 };
@@ -19,7 +19,7 @@ var echojs = {
 };
 var hackernews = {
     url: 'http://hnify.herokuapp.com',
-    limit: 90
+    limit: 75
 };
 
 var posts = [];
