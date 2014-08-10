@@ -10,7 +10,8 @@ var Post = require('mongoose').model('Post');
 var reddit = {
     url: 'http://www.reddit.com',
     limit: 100,
-    uaString: 'thedigest/0.1 by connyay'
+    uaString: 'thedigest/0.1 by connyay',
+    subreddits: ['programming', 'technology', 'futurology', 'science', 'webdev', 'web_design', 'blackhat']
 };
 var echojs = {
     url: 'http://www.echojs.com',
@@ -139,7 +140,7 @@ function sortAndStorePosts() {
 
 var deferredList = [];
 // Grab Reddit Feeds
-['programming', 'technology', 'science', 'webdev', 'web_design', 'blackhat'].forEach(function(subreddit) {
+reddit.subreddits.forEach(function(subreddit) {
     deferredList.push(fetchRedditFeed(subreddit));
 });
 
