@@ -7,10 +7,12 @@
     },
     "echojs": {
         "url": "http://www.echojs.com",
+        "source": "Echo JS",
         "limit": 32
     },
     "hackernews": {
         "url": "http://hnify.herokuapp.com",
+        "source": "Hacker News",
         "limit": 75
     }
 }

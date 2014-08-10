@@ -50,7 +50,7 @@ function fetchEchoJsFeed(page) {
             data.news.forEach(function(post) {
                 posts.push({
                     'title': post.title,
-                    'source': 'Echo JS',
+                    'source': config.echojs.source,
                     'time': moment(post.ctime * 1000).fromNow(),
                     'link': post.url,
                     'comment_count': post.comments,
@@ -71,7 +71,7 @@ function fetchHackerNewsFeed() {
             data.stories.forEach(function(post) {
                 posts.push({
                     'title': post.title,
-                    'source': 'HackerNews',
+                    'source': config.hackernews.source,
                     'time': post.published_time,
                     'link': post.link,
                     'comment_count': post.num_comments,
