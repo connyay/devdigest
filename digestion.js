@@ -165,8 +165,10 @@ Q.all(deferredList).then(function() {
     Post.collection.insert(posts, function(err, docs) {
         if (!err) {
             console.log('Collection saved! Stored ' + docs.length + ' posts in the DB.');
+            process.exit(0)
         } else {
             console.log('Error saving docs?');
+            process.exit(1);
         }
     });
 });
