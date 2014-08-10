@@ -1,8 +1,11 @@
 extend layout
 
 block content
-  p
-    | Story
-    hr
-    | Story
-    hr
+  div(ng-controller='MainCtrl as ctrl')
+    ul
+      li(ng-repeat='post in posts')
+        h4
+          a(ng-href='{{post.link}}') {{post.title}}
+        {{post.time}} &mdash; {{post.source}} &mdash;#{' '}
+        a(ng-href='{{post.comment_link') {{post.comment_count}} Comments
+        hr
