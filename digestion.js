@@ -7,20 +7,7 @@ var moment = require('moment');
 require('./db');
 var Post = require('mongoose').model('Post');
 
-var reddit = {
-    url: 'http://www.reddit.com',
-    limit: 75,
-    uaString: 'thedigest/0.1 by connyay',
-    subreddits: ['programming', 'technology', 'futurology', 'science', 'webdev', 'web_design', 'blackhat']
-};
-var echojs = {
-    url: 'http://www.echojs.com',
-    limit: 32
-};
-var hackernews = {
-    url: 'http://hnify.herokuapp.com',
-    limit: 75
-};
+var config = require('./digestion.json');
 
 var posts = [];
 
@@ -28,10 +15,10 @@ function fetchRedditFeed(subreddit) {
     var deferred = Q.defer();
     var opts = {
         headers: {
-            'User-Agent': reddit.uaString
+            'User-Agent': config.reddit.uaString
         }
     };
-    request(reddit.url + '/r/' + subreddit + '/hot.json?limit=' + reddit.limit, opts, function(error, response, body) {
+    request(config.reddit.url + '/r/' + subreddit + '/hot.json?limit=' + config.reddit.limit, opts, function(error, response, body) {
         if (!error && response.statusCode === 200) {
             var data = JSON.parse(body);
             data.data.children.forEach(function(post) {
@@ -45,7 +32,7 @@ function fetchRedditFeed(subreddit) {
                     'time': moment(data.created_utc * 1000).fromNow(),
                     'link': data.url,
                     'comment_count': data.num_comments,
-                    'comment_link': reddit.url + data.permalink
+                    'comment_link': config.reddit.url + data.permalink
                 });
             });
             deferred.resolve();
@@ -57,7 +44,7 @@ function fetchRedditFeed(subreddit) {
 function fetchEchoJsFeed(page) {
     var deferred = Q.defer();
     var start = (page === 1) ? 1 : 33;
-    request(echojs.url + '/api/getnews/top/' + start + '/' + echojs.limit, function(error, response, body) {
+    request(config.echojs.url + '/api/getnews/top/' + start + '/' + config.echojs.limit, function(error, response, body) {
         if (!error && response.statusCode === 200) {
             var data = JSON.parse(body);
             data.news.forEach(function(post) {
@@ -67,7 +54,7 @@ function fetchEchoJsFeed(page) {
                     'time': moment(post.ctime * 1000).fromNow(),
                     'link': post.url,
                     'comment_count': post.comments,
-                    'comment_link': echojs.url + '/news/' + post.id
+                    'comment_link': config.echojs.url + '/news/' + post.id
                 });
             });
             deferred.resolve();
@@ -78,7 +65,7 @@ function fetchEchoJsFeed(page) {
 
 function fetchHackerNewsFeed() {
     var deferred = Q.defer();
-    request(hackernews.url + '/get/top?limit=' + hackernews.limit, function(error, response, body) {
+    request(config.hackernews.url + '/get/top?limit=' + config.hackernews.limit, function(error, response, body) {
         if (!error && response.statusCode === 200) {
             var data = JSON.parse(body);
             data.stories.forEach(function(post) {
@@ -97,7 +84,8 @@ function fetchHackerNewsFeed() {
     return deferred.promise;
 }
 
-function sortAndStorePosts() {
+function sortPosts() {
+    // Algorithm ripped from cjstewart88/sortByTimeAgo (MIT License)
     var sortedPosts = [],
         category,
         separatedPosts = {
@@ -139,22 +127,19 @@ function sortAndStorePosts() {
 }
 
 var deferredList = [];
+
 // Grab Reddit Feeds
-reddit.subreddits.forEach(function(subreddit) {
+config.reddit.subreddits.forEach(function(subreddit) {
     deferredList.push(fetchRedditFeed(subreddit));
 });
-
 // Grab EchoJS feed
-// Page 1
-deferredList.push(fetchEchoJsFeed(1));
-// Page 2
-deferredList.push(fetchEchoJsFeed(2));
-
+deferredList.push(fetchEchoJsFeed(1)/* Page 1*/);
+deferredList.push(fetchEchoJsFeed(2)/* Page 2*/);
 // Grab HackerNews feed
 deferredList.push(fetchHackerNewsFeed());
 
 Q.all(deferredList).then(function() {
-    sortAndStorePosts();
+    sortPosts();
     // Wipe out DB
     Post.collection.remove({}, function(err) {
         if (!err) {
