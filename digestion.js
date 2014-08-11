@@ -29,7 +29,7 @@ function fetchRedditFeed(subreddit) {
                 posts.push({
                     'title': data.title,
                     'source': '/r/' + subreddit,
-                    'time': moment(data.created_utc * 1000).fromNow(),
+                    'time': moment.utc(data.created_utc * 1000).fromNow(),
                     'link': data.url,
                     'comment_count': data.num_comments,
                     'comment_link': config.reddit.url + data.permalink
@@ -51,7 +51,7 @@ function fetchEchoJsFeed(page) {
                 posts.push({
                     'title': post.title,
                     'source': config.echojs.source,
-                    'time': moment(post.ctime * 1000).fromNow(),
+                    'time': moment.utc(post.ctime * 1000).fromNow(),
                     'link': post.url,
                     'comment_count': post.comments,
                     'comment_link': config.echojs.url + '/news/' + post.id
