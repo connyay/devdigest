@@ -2,18 +2,17 @@ extend layout
 
 block content
   div(ng-controller='MainCtrl as ctrl', ng-cloak)
-    input.block.filter(type='text', placeholder='Filter', ng-show='!loading && posts.length', ng-model='filter')
-    ul
-      li(ng-repeat='post in posts | filter:{title: filter} track by post._id')
-        h4
-          a(ng-href='{{post.link}}', target='_blank') {{post.title}}
-        .subheader
-          | {{post.time}} &mdash; {{post.source}}#{' '}
-          span(ng-if='post.comment_link')
-            | &mdash;#{' '}
-            a(ng-href='{{post.comment_link}}', target='_blank')
-              ng-pluralize(count='post.comment_count', when="{'one': '1 comment', 'other': '{} comments'}")
-        hr
-      li.text-center(ng-if='!loading && !posts.length')
-        em Could not find any posts...
+    input.form-control(type='text', placeholder='Filter', ng-show='!loading && posts.length', ng-model='filter')
+    .post(ng-repeat='post in posts | filter:{title: filter} track by post._id')
+      h3.post-title
+        a(ng-href='{{post.link}}', target='_blank') {{post.title}}
+      span.post-date
+        | {{post.time}} &mdash; {{post.source}}#{' '}
+        span(ng-if='post.comment_link')
+          | &mdash;#{' '}
+          a(ng-href='{{post.comment_link}}', target='_blank')
+            ng-pluralize(count='post.comment_count', when="{'one': '1 comment', 'other': '{} comments'}")
+      hr
+    .text-center(ng-if='!loading && !posts.length')
+      em Could not find any posts...
     loading(ng-if='loading')
