@@ -133,8 +133,8 @@ config.reddit.subreddits.forEach(function(subreddit) {
     deferredList.push(fetchRedditFeed(subreddit));
 });
 // Grab EchoJS feed
-deferredList.push(fetchEchoJsFeed(1)/* Page 1*/);
-deferredList.push(fetchEchoJsFeed(2)/* Page 2*/);
+deferredList.push(fetchEchoJsFeed(1) /* Page 1*/ );
+deferredList.push(fetchEchoJsFeed(2) /* Page 2*/ );
 // Grab HackerNews feed
 deferredList.push(fetchHackerNewsFeed());
 
@@ -144,17 +144,19 @@ Q.all(deferredList).then(function() {
     Post.collection.remove({}, function(err) {
         if (!err) {
             console.log('Collection dropped.');
+
+            Post.collection.insert(posts, function(err, docs) {
+                if (!err) {
+                    console.log('Collection saved! Stored ' + docs.length + ' posts in the DB.');
+                    process.exit(0);
+                } else {
+                    console.log('Error saving docs?');
+                    process.exit(1);
+                }
+            });
+            
         } else {
             console.log('Error dropping collection?');
-        }
-    });
-    Post.collection.insert(posts, function(err, docs) {
-        if (!err) {
-            console.log('Collection saved! Stored ' + docs.length + ' posts in the DB.');
-            process.exit(0);
-        } else {
-            console.log('Error saving docs?');
-            process.exit(1);
         }
     });
 });
