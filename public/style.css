@@ -334,6 +334,9 @@ hr {
 .theme-base-0d .container a, .theme-base-0d .sidebar-toggle {
   color: #6a9fb5;
 }
+.theme-base-0d a:visited {
+  color: #9dc0ce;
+}
 
 /* Magenta */
 .theme-base-0e .sidebar, .theme-base-0e .sidebar-toggle:active, .theme-base-0e #sidebar-checkbox:checked ~ .sidebar-toggle {
