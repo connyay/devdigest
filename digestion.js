@@ -79,6 +79,8 @@ function fetchHackerNewsFeed() {
                 });
             });
             deferred.resolve();
+        } else {
+           deferred.resolve();
         }
     });
     return deferred.promise;
