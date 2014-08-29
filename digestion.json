@@ -11,7 +11,7 @@
         "limit": 32
     },
     "hackernews": {
-        "url": "http://hnify.herokuapp.com",
+        "url": "http://boiling-reef-8337.herokuapp.com",
         "source": "Hacker News",
         "limit": 75
     }
