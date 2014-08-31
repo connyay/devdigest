@@ -24,8 +24,7 @@ html
 
     label.sidebar-toggle(for='sidebar-checkbox')
 
-    script(src='lib.js')
-    script(src='app.js')
+    script(src='app.js', async)
     script.
       (function(document) {
          var toggle = document.querySelector('.sidebar-toggle');
