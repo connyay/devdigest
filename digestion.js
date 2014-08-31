@@ -8,7 +8,7 @@ require('./db');
 var Post = require('mongoose').model('Post');
 
 var config = require('./digestion.json');
-
+var client = require('./cache').client;
 var posts = [];
 
 function fetchRedditFeed(subreddit) {
@@ -150,13 +150,16 @@ Q.all(deferredList).then(function() {
             Post.collection.insert(posts, function(err, docs) {
                 if (!err) {
                     console.log('Collection saved! Stored ' + docs.length + ' posts in the DB.');
-                    process.exit(0);
+                    client.flush(function(){
+                        console.log('Cache flushed');
+                        process.exit(0);
+                    });
                 } else {
                     console.log('Error saving docs?');
                     process.exit(1);
                 }
             });
-            
+
         } else {
             console.log('Error dropping collection?');
         }

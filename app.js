@@ -5,6 +5,8 @@ var compression = require('compression');
 require('./db');
 var Post = require('mongoose').model('Post');
 
+var client = require('./cache').client;
+
 var app = express();
 app.use(compression());
 
@@ -14,22 +16,32 @@ app.use(express.static(__dirname + '/public'));
 
 app.set('port', (process.env.PORT || 5000));
 
+function getPosts(cb) {
+    client.get('posts', function(err, posts) {
+        if (posts) {
+            cb(JSON.parse(posts.toString()));
+            return;
+        }
+        Post.find()
+            .sort({
+                '_id': 1
+            })
+            .exec(function(err, posts) {
+                if (err) {
+                    return next(err);
+                }
+                client.set('posts', JSON.stringify(posts));
+                cb(posts);
+            });
+    });
+}
 
 app.get('/', function(req, res, next) {
-
-    Post.find()
-        .sort({
-            '_id': 1
-        })
-        .exec(function(err, posts) {
-            if (err) {
-                return next(err);
-            }
-            res.render('index', {
-                posts: posts
-            });
+    getPosts(function(posts) {
+        res.render('index', {
+            posts: posts
         });
-
+    });
 });
 
 // Start it up
