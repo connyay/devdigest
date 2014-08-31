@@ -1,18 +1,25 @@
 extend layout
 
+mixin pluralize(value, single, other)
+  -string=other
+  if(value==1)
+    -string=single
+  =string
+
 block content
-  div(ng-controller='MainCtrl as ctrl', ng-cloak)
-    input.form-control(type='text', placeholder='Filter', ng-show='!loading && posts.length', ng-model='filter')
-    .post(ng-repeat='post in posts | filter:filter track by post._id')
-      h3.post-title
-        a(ng-href='{{post.link}}', target='_blank') {{::post.title}}
-      span.post-date
-        | {{::post.time}} &mdash; {{::post.source}}#{' '}
-        span(ng-if='post.comment_link')
-          | &mdash;#{' '}
-          a(ng-href='{{post.comment_link}}', target='_blank')
-            ng-pluralize(count='post.comment_count', when="{'one': '1 comment', 'other': '{} comments'}")
-      hr
-    .text-center(ng-if='!loading && !posts.length')
-      em Could not find any posts...
-    loading(ng-if='loading')
+  div#posts
+    input.search.form-control(type='text', placeholder='Filter')
+    .posts
+      each post in posts
+        article.post
+          h3.post-title
+            a(href='#{post.link}', target='_blank') #{post.title}
+          .post-meta
+            span.post-date
+              | #{post.time} &mdash;
+            span.post-source #{post.source}#{' '}
+            if post.comment_link
+              span &mdash;#{' '}
+                a(href='#{post.comment_link}', target='_blank') #{post.comment_count}#{' '}
+                  +pluralize(post.comment_count, 'comment', 'comments')
+          hr

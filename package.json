@@ -1,5 +1,5 @@
 {
-  "name": "thedigest",
+  "name": "dgst",
   "version": "0.0.1",
   "description": "",
   "main": "app.js",
@@ -8,17 +8,17 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/connyay/thedigest.git"
+    "url": "https://github.com/connyay/dgst.git"
   },
   "author": "Connor Hindley",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/connyay/thedigest/issues"
+    "url": "https://github.com/connyay/dgst/issues"
   },
   "engines": {
     "node": "0.10.x"
   },
-  "homepage": "https://github.com/connyay/thedigest",
+  "homepage": "https://github.com/connyay/dgst",
   "dependencies": {
     "compression": "^1.0.10",
     "express": "3.4.7",
