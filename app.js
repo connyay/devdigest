@@ -36,7 +36,8 @@ function getPosts(cb) {
     });
 }
 
-app.get('/', function(req, res, next) {
+// Catch all paths for now...
+app.get('*', function(req, res, next) {
     getPosts(function(posts) {
         res.render('index', {
             posts: posts
