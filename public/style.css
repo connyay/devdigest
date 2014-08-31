@@ -334,7 +334,7 @@ hr {
 .theme-base-0d .container a, .theme-base-0d .sidebar-toggle {
   color: #6a9fb5;
 }
-.theme-base-0d a:visited {
+.theme-base-0d .posts a:visited {
   color: #9dc0ce;
 }
 
