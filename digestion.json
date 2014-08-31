@@ -14,5 +14,9 @@
         "url": "http://boiling-reef-8337.herokuapp.com",
         "source": "Hacker News",
         "limit": 75
+    },
+    "hackaday": {
+        "url": "http://www.hackaday.com/rss.xml",
+        "source": "Hack A Day"
     }
 }

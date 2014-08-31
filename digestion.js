@@ -3,6 +3,7 @@
 var request = require('request');
 var Q = require('q');
 var moment = require('moment');
+var rsj = require('rsj');
 
 require('./db');
 var Post = require('mongoose').model('Post');
@@ -80,8 +81,29 @@ function fetchHackerNewsFeed() {
             });
             deferred.resolve();
         } else {
-           deferred.resolve();
+            deferred.resolve();
         }
+    });
+    return deferred.promise;
+}
+
+function fetchHackADayFeed() {
+    var deferred = Q.defer();
+    rsj.r2j(config.hackaday.url, function(json) {
+        var stories = JSON.parse(json);
+        stories.forEach(function(post) {
+            // Just to be safe...
+            var commentCount = (post['slash:comments'] && post['slash:comments']['#']) || 0;
+            posts.push({
+                'title': post.title,
+                'source': config.hackaday.source,
+                'time': moment(post.date).fromNow(),
+                'link': post.origlink,
+                'comment_count': commentCount,
+                'comment_link': post.comments
+            });
+        });
+        deferred.resolve();
     });
     return deferred.promise;
 }
@@ -139,6 +161,8 @@ deferredList.push(fetchEchoJsFeed(1) /* Page 1*/ );
 deferredList.push(fetchEchoJsFeed(2) /* Page 2*/ );
 // Grab HackerNews feed
 deferredList.push(fetchHackerNewsFeed());
+// Grab Hack A Day feed
+deferredList.push(fetchHackADayFeed());
 
 Q.all(deferredList).then(function() {
     sortPosts();
@@ -150,7 +174,7 @@ Q.all(deferredList).then(function() {
             Post.collection.insert(posts, function(err, docs) {
                 if (!err) {
                     console.log('Collection saved! Stored ' + docs.length + ' posts in the DB.');
-                    client.flush(function(){
+                    client.flush(function() {
                         console.log('Cache flushed');
                         process.exit(0);
                     });
