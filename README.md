@@ -20,6 +20,8 @@ Why not?
 ### What is the design?
 Design is [lanyon](https://github.com/poole/lanyon) by the very talented [mdo](https://github.com/mdo).
 
+Favicon designed by [Cassie McKown](http://www.thenounproject.com/mckowncr) from the [Noun Project](http://www.thenounproject.com).
+
 ---
 
 #### Local dev setup
