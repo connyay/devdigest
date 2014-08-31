@@ -30,7 +30,7 @@ function fetchRedditFeed(subreddit) {
                 }
                 var data = post.data;
                 posts.push({
-                    'title': data.title,
+                    'title': data.title.replace(/&amp;/g, '&'),
                     'source': '/r/' + subreddit,
                     'time': moment.utc(data.created_utc * 1000).fromNow(),
                     'link': data.url,
