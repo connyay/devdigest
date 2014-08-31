@@ -8,7 +8,8 @@ mixin pluralize(value, single, other)
 
 block content
   div#posts
-    input.search.form-control(type='text', placeholder='Filter')
+    if posts.length
+      input.search.form-control(type='text', placeholder='Filter')
     .posts
       each post in posts
         article.post
@@ -23,3 +24,6 @@ block content
                 a(href='#{post.comment_link}', target='_blank') #{post.comment_count}#{' '}
                   +pluralize(post.comment_count, 'comment', 'comments')
           hr
+      if !posts.length
+        .text-center(ng-if='!loading && !posts.length')
+          em Could not find any posts...
