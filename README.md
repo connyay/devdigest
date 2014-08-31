@@ -6,7 +6,7 @@
 This is a news aggregator... aggregator. I built this for my own use, but I figured others might enjoy it as well.
 
 ### What does it do?
-[dgst.it](http://dgst.it) scans Reddit (7 subreddits), Hacker News, Echo JS, and Hack A day every hour and caches the results.
+[dgst.it](http://dgst.it) scans Reddit ([7 subreddits](digestion.json#L6)), Hacker News, Echo JS, and Hack A day every hour and caches the results.
 
 ### Why?
 Why not?
