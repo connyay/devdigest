@@ -1,0 +1,10 @@
+{
+  "name": "Digest It",
+  "description": "An application that aggregates news aggregators.",
+  "website": "http://dgst.it",
+  "success_url": "/",
+  "addons": ["scheduler:standard", "memcachedcloud:25", "mongohq:sandbox"],
+  "scripts": {
+    "postdeploy": "./digest"
+  }
+}
