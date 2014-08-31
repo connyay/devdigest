@@ -185,7 +185,6 @@ Q.all(deferredList).then(function() {
                     process.exit(1);
                 }
             });
-
         } else {
             console.log('Error dropping collection?');
         }

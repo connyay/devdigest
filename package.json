@@ -1,5 +1,5 @@
 {
-  "name": "dgst",
+  "name": "dgst-it",
   "version": "0.0.1",
   "description": "",
   "main": "app.js",
@@ -8,17 +8,17 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/connyay/dgst.git"
+    "url": "https://github.com/connyay/dgst-it.git"
   },
   "author": "Connor Hindley",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/connyay/dgst/issues"
+    "url": "https://github.com/connyay/dgst-it/issues"
   },
   "engines": {
     "node": "0.10.x"
   },
-  "homepage": "https://github.com/connyay/dgst",
+  "homepage": "https://github.com/connyay/dgst-it",
   "dependencies": {
     "compression": "^1.0.10",
     "express": "3.4.7",
