@@ -18,7 +18,7 @@ Why not?
 3. Memcached
 
 ### What is the design?
-Design is [lanyon](https://github.com/poole/lanyon) by the very talented [mdo](https://github.com/mdo)
+Design is [lanyon](https://github.com/poole/lanyon) by the very talented [mdo](https://github.com/mdo).
 
 #### Local dev setup
 *Prerequisites:*
