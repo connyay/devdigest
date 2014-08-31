@@ -26,6 +26,7 @@ Design is [lanyon](https://github.com/poole/lanyon) by the very talented [mdo](h
 - mongodb and memcached running
 
 *Steps:*
+
 1. `git clone git@github.com:connyay/dgst-it.git`
 2. `cd dgst-it`
 3. `npm install`
