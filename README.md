@@ -20,6 +20,8 @@ Why not?
 ### What is the design?
 Design is [lanyon](https://github.com/poole/lanyon) by the very talented [mdo](https://github.com/mdo).
 
+---
+
 #### Local dev setup
 *Prerequisites:*
 - node & npm available on path
