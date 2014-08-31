@@ -19,9 +19,11 @@ app.set('port', (process.env.PORT || 5000));
 function getPosts(cb) {
     client.get('posts', function(err, posts) {
         if (posts) {
+            // Cache hit :]
             cb(JSON.parse(posts.toString()));
             return;
         }
+        // Cache miss :[
         Post.find()
             .sort({
                 '_id': 1
