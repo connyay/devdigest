@@ -14,7 +14,17 @@ app.set('views', __dirname + '/views');
 app.set('view engine', 'jade');
 app.use(express.static(__dirname + '/public'));
 
-app.set('port', (process.env.PORT || 5000));
+var port = process.env.PORT || 5000;
+var ip = process.env.IP || 'localhost';
+
+var env = process.env.NODE_ENV || 'development';
+if ('production' === env) {
+    ip = process.env.OPENSHIFT_NODEDIY_IP || ip;
+    port = process.env.OPENSHIFT_NODEDIY_PORT || port;
+}
+
+app.set('port', port);
+app.set('ip', ip);
 
 function getPosts(cb) {
     client.get('posts', function(err, posts) {
@@ -48,6 +58,6 @@ app.get('*', function(req, res, next) {
 });
 
 // Start it up
-app.listen(app.get('port'), function() {
+app.listen(app.get('ip'), app.get('port'), function() {
     console.log('Node app is listening on port: ' + app.get('port'));
 });
