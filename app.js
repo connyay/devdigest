@@ -58,6 +58,6 @@ app.get('*', function(req, res, next) {
 });
 
 // Start it up
-app.listen(app.get('ip'), app.get('port'), function() {
+app.listen(app.get('port'), app.get('ip'), function() {
     console.log('Node app is listening on port: ' + app.get('port'));
 });
