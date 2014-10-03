@@ -3,7 +3,7 @@
         "url": "http://www.reddit.com",
         "limit": 75,
         "uaString": "dgst.it/0.1 by /u/connyay",
-        "subreddits": ["programming", "technology", "futurology", "science", "webdev", "web_design", "blackhat"]
+        "subreddits": ["programming", "linux", "technology", "futurology", "science", "webdev", "web_design", "blackhat"]
     },
     "echojs": {
         "url": "http://www.echojs.com",
