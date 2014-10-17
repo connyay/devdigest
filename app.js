@@ -15,7 +15,7 @@ app.set('view engine', 'jade');
 app.use(express.static(__dirname + '/public'));
 
 var port = process.env.PORT || 5000;
-var ip = process.env.IP || 'localhost';
+var ip = process.env.IP || '0.0.0.0';
 
 var env = process.env.NODE_ENV || 'development';
 if ('production' === env) {
